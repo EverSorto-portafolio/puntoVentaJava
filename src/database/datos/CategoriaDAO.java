@@ -14,63 +14,124 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author everc
  */
 public class CategoriaDAO implements CRUDGeneralInterface<Categoria> {
 
-    private final  Conexion conectar ;
+    private final Conexion conectar;
     private PreparedStatement ps;
     private ResultSet rs;
     private boolean resp;
-    
-    public CategoriaDAO(){
+
+    public CategoriaDAO() {
         conectar = Conexion.getInstance();
     }
-    
+
     @Override
     public List<Categoria> getAll(String list) {
-       List<Categoria> registros = new ArrayList();
+        List<Categoria> registros = new ArrayList();
         try {
-            ps = conectar.conectar().prepareStatement
-        ("SELECT * FROM categoria WHERE nombre like ?");
-            ps.setString(1,"%" + list + "%");
+            ps = conectar.conectar().prepareStatement("SELECT * FROM categoria WHERE nombre like ?");
+            ps.setString(1, "%" + list + "%");
             rs = ps.executeQuery();
-            while(rs.next()){
-                registros.add(new Categoria 
-        (rs.getInt(1), rs.getString(2), rs.getString(3), rs.getBoolean(4)));
+            while (rs.next()) {
+                registros.add(new Categoria(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getBoolean(4)));
             }
             ps.close();
-            rs.close(); 
+            rs.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
-        }finally{
+        } finally {
             ps = null;
-            rs = null; 
+            rs = null;
             conectar.desconnectar();
         }
-        return  registros ;
+        return registros;
     }
 
     @Override
     public boolean insert(Categoria object) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        resp = false;
+        try {
+            ps = conectar.conectar().prepareStatement("INSERT INTO categoria(?,?,1)");
+            ps.setString(1, object.getNombre());
+            ps.setString(2, object.getDescripcion());
+            if(ps.executeUpdate() > 0){
+                resp = true;
+                ps.close();
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }finally{
+            ps = null;
+            conectar.desconnectar();
+        }
+        return resp;
     }
 
     @Override
     public boolean update(Categoria object) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        resp = false;
+        try {
+            ps = conectar.conectar().prepareStatement
+        ("Update categoria SET nombre=?, descripcion =? where id= ?");
+            ps.setString(1, object.getNombre());
+            ps.setString(2, object.getDescripcion());
+            ps.setInt(3, object.getId());
+            if(ps.executeUpdate() > 0){
+                resp = true;
+                ps.close();
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }finally{
+            ps = null;
+            conectar.desconnectar();
+        }
+        return resp;
     }
 
     @Override
-    public boolean onVariable() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public boolean onVariable(int id) {
+          resp = false;
+        try {
+            ps = conectar.conectar().prepareStatement
+        ("Update categoria SET estado=1, where id= ?");
+            ps.setInt(1, id);
+            if(ps.executeUpdate() > 0){
+                resp = true;
+                ps.close();
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }finally{
+            ps = null;
+            conectar.desconnectar();
+        }
+        return resp;
     }
 
     @Override
-    public boolean offVaraible() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public boolean offVaraible(int id) {
+        resp = false;
+        try {
+            ps = conectar.conectar().prepareStatement
+        ("Update categoria SET estado=0, where id= ?");
+            ps.setInt(1, id);
+            if(ps.executeUpdate() > 0){
+                resp = true;
+                ps.close();
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }finally{
+            ps = null;
+            conectar.desconnectar();
+        }
+        return resp;
     }
 
     @Override
@@ -82,7 +143,5 @@ public class CategoriaDAO implements CRUDGeneralInterface<Categoria> {
     public int total() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
-    
-    
+
 }

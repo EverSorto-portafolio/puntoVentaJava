@@ -14,8 +14,8 @@ public interface CRUDGeneralInterface <T> {
     public  List<T> getAll(String list);
     public boolean insert( T object );
     public boolean update( T object  );
-    public boolean  onVariable();
-    public boolean offVaraible();
-    public int exist(String text);
+    public boolean  onVariable(int id);
+    public boolean offVaraible(int id);
+    public boolean exist(String text);
     public int total();
 }
