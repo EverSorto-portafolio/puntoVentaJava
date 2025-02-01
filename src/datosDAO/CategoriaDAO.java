@@ -1,3 +1,5 @@
+package datosDAO;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -15,10 +17,6 @@ import java.util.ArrayList;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author everc
- */
 public class CategoriaDAO implements CRUDGeneralInterface<Categoria> {
 
     private final Conexion conectar;
@@ -135,13 +133,51 @@ public class CategoriaDAO implements CRUDGeneralInterface<Categoria> {
     }
 
     @Override
-    public int exist(String text) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public boolean exist(String text) {
+        resp = false;
+        try {
+            ps = conectar.conectar().prepareStatement
+        ("select nombre from categoria where id = ?");
+            ps.setString(1, text);
+            rs = ps.executeQuery();
+            rs.last();
+            
+            if(rs.getRow()> 0){
+                resp = true;
+            }
+            
+            ps.close();
+            rs.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }finally{
+             ps = null;
+             rs = null;
+             conectar.desconnectar();
+        }
+        return resp;
     }
 
     @Override
     public int total() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        int totalRegistro = 0;
+        try {
+            ps = conectar.conectar().prepareStatement
+        ("select  count(id) from categoria");
+            rs = ps.executeQuery();
+            while(rs.next()){
+                totalRegistro = rs.getInt("count(id)");
+            }
+            ps.close();
+            rs.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }finally{
+             ps = null;
+             rs = null;
+             conectar.desconnectar();
+        }
+        return totalRegistro;
     }
 
 }
