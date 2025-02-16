@@ -29,7 +29,7 @@ public class Conexion {
                     URL + DB, USER, PASSWORD);
                    
         } catch ( ClassNotFoundException | SQLException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
+                JOptionPane.showMessageDialog(null,"prueba desde conexion" + e.getMessage());
             System.exit(0);
         }
         return  this.connection;
