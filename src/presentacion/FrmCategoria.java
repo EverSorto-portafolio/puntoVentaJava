@@ -279,7 +279,7 @@ public class FrmCategoria extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void mensajeError(String mensaje) {
-        JOptionPane.showMessageDialog(this, mensaje, "Sistema", JOptionPane.ERROR);
+        JOptionPane.showMessageDialog(this, mensaje, "Sistema", JOptionPane.ERROR_MESSAGE);
     }
 
     private void mensajeOk(String mensaje) {
@@ -313,14 +313,14 @@ public class FrmCategoria extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        if(tablaListado.getSelectedColumn() == 1){
+        if(tablaListado.getSelectedRowCount()== 1){
                 String id = String.valueOf(tablaListado.getValueAt(tablaListado.getSelectedRow(), 0));
                 String nombre = String.valueOf(tablaListado.getValueAt(tablaListado.getSelectedRow(), 1));
                 String descripcion = String.valueOf(tablaListado.getValueAt(tablaListado.getSelectedRow(), 2));
-                nombreAnt = nombre = String.valueOf(tablaListado.getValueAt(tablaListado.getSelectedRow(), 1));
+                nombreAnt = String.valueOf(tablaListado.getValueAt(tablaListado.getSelectedRow(), 1));
 
                 txtId.setText(id);
-                txtNombre.setText(descripcion);
+                txtNombre.setText(nombre);
                 txtDescripcion.setText(descripcion);
                 
                 tabGeneral.setEnabledAt(0, false);
@@ -329,7 +329,8 @@ public class FrmCategoria extends javax.swing.JInternalFrame {
                 this.accion = "editar";
                 btnGuardar.setText("Editar");
         }else{
-            this.mensajeError("Selecciona un registro");
+            mensajeError("Selecciona un registro");
+            
         }
 
     }//GEN-LAST:event_btnEditarActionPerformed
