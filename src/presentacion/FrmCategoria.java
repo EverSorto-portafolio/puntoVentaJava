@@ -287,8 +287,15 @@ public class FrmCategoria extends javax.swing.JInternalFrame {
     }
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        if (txtNombre.getText().length() == 0) {
-            JOptionPane.showMessageDialog(this, "Nombre es obligatorio",
+        if (txtNombre.getText().length() == 0 || txtNombre.getText().length()>30){
+            JOptionPane.showMessageDialog(this, "Nombre 30 caracteres maxismo",
+                    "Systema", JOptionPane.WARNING_MESSAGE);
+            txtNombre.requestFocus();
+            return;
+        }
+        
+          if ( txtNombre.getText().length()>30){
+            JOptionPane.showMessageDialog(this, "Nombre 30 caracteres maxismo",
                     "Systema", JOptionPane.WARNING_MESSAGE);
             txtNombre.requestFocus();
             return;
@@ -297,7 +304,22 @@ public class FrmCategoria extends javax.swing.JInternalFrame {
         String respuesta;
 
         if (this.accion.equals("editar")) {
-            // Editar
+           respuesta = this.CONTROL.actualizar(Integer.parseInt(txtId.getText()), 
+                   txtNombre.getText(),this.nombreAnt , txtDescripcion.getText());
+           
+           if (respuesta.equals("OK")) {
+                    this.mensajeOk("Registrado Correctamente");
+                    this.limpiar();
+                    this.listar("");
+                    
+                    tabGeneral.setEnabledAt(0, false);
+                    tabGeneral.setEnabledAt(0, true);
+                    tabGeneral.setSelectedIndex(0);
+                    
+            } else {
+                this.mensajeError(respuesta);
+            }
+           
         } else {
             respuesta = this.CONTROL.Insertar(txtNombre.getText(), txtDescripcion.getText());
             if (respuesta.equals("OK")) {
