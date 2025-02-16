@@ -125,6 +125,11 @@ public class FrmCategoria extends javax.swing.JInternalFrame {
         });
 
         btnActivar.setText("Activar");
+        btnActivar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActivarActionPerformed(evt);
+            }
+        });
 
         btnDesactivar.setText("Desactivar");
         btnDesactivar.addActionListener(new java.awt.event.ActionListener() {
@@ -392,22 +397,46 @@ public class FrmCategoria extends javax.swing.JInternalFrame {
 
             if (JOptionPane.showConfirmDialog(this,
                     "Deshabilitar el registro " + nombre,
-                    "Desactivar", 
+                    "Desactivar",
                     JOptionPane.YES_NO_OPTION) == 0) {
-                
+
                 String resp = this.CONTROL.desactivar(Integer.parseInt(id));
-                if(resp.equals("Ok")){
+                if (resp.equals("Ok")) {
                     this.mensajeOk("El registro se desactivo");
                     this.listar("");
-                    }else{
-                        mensajeError(resp);
+                } else {
+                    mensajeOk(resp);
                 }
-                
-            } else{
-                 mensajeError("Selecionae un registro");
+
+            } else {
+                mensajeError("Selecionae un registro");
             }
         }
     }//GEN-LAST:event_btnDesactivarActionPerformed
+
+    private void btnActivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActivarActionPerformed
+        if (tablaListado.getSelectedRowCount() == 1) {
+            String id = String.valueOf(tablaListado.getValueAt(tablaListado.getSelectedRow(), 0));
+
+            String nombre = String.valueOf(tablaListado.getValueAt(tablaListado.getSelectedRow(), 1));
+
+            if (JOptionPane.showConfirmDialog(this,
+                    "Deshabilitar el registro " + nombre,
+                    "Desactivar",
+                    JOptionPane.YES_NO_OPTION) == 0) {
+
+                String resp = this.CONTROL.activar(Integer.parseInt(id));
+                if (resp.equals("Ok")) {
+                    this.mensajeOk("El registro se activo");
+                    this.listar("");
+                } else {
+                    mensajeOk(resp);
+                }
+
+            } else {
+                mensajeError("Selecionae un registro");
+            }
+        }    }//GEN-LAST:event_btnActivarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

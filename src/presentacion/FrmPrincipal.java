@@ -3,9 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/MDIApplication.java to edit this template
  */
 package presentacion;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.JDesktopPane;
+
 /**
  *
  * @author everc
@@ -147,14 +149,12 @@ public class FrmPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(escritorio, javax.swing.GroupLayout.DEFAULT_SIZE, 779, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(escritorio, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(escritorio, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(escritorio, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -166,13 +166,18 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void MnuAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnuAlmacenActionPerformed
-        
-        
+
+
     }//GEN-LAST:event_MnuAlmacenActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-FrmCategoria frmCategoria = new FrmCategoria();
+        FrmCategoria frmCategoria = new FrmCategoria();
         escritorio.add(frmCategoria);
+        try {
+            frmCategoria.setMaximum(true); // Hace que el JInternalFrame ocupe todo el espacio
+        } catch (java.beans.PropertyVetoException e) {
+            e.printStackTrace();
+        }
         frmCategoria.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
