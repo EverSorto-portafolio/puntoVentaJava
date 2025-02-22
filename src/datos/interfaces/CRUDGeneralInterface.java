@@ -6,8 +6,7 @@ package datos.interfaces;
 
 import java.util.List;
 
-/**
- *
+/** *
  * @author everc
  */
 public interface CRUDGeneralInterface <T> {

@@ -4,10 +4,20 @@
  */
 package datos.interfaces;
 
+import java.util.List;
+
 /**
  *
  * @author everc
  */
-public interface CrudPaginadoInterface {
+public interface CrudPaginadoInterface <T> {
     
+    public  List<T> getAll(String list, int totalPorPagina, int numPagina);
+    public boolean insert( T object );
+    public boolean update( T object  );
+    public boolean  onVariable(int id);
+    public boolean offVaraible(int id);
+    public boolean exist(String text);
+    public int total();
 }
+
