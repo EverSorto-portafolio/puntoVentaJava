@@ -11,6 +11,7 @@ import datos.interfaces.CRUDGeneralInterface;
 import entidades.Categoria;
 import java.util.List;
 import database.Conexion;
+import datos.interfaces.CrudPaginadoInterface;
 import entidades.Articulo;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
-public class ArticuloDAO implements CRUDGeneralInterface<Articulo> {
+public class ArticuloDAO implements CrudPaginadoInterface<Articulo> {
 
     private final Conexion conectar;
     private PreparedStatement ps;
@@ -55,18 +56,21 @@ public class ArticuloDAO implements CRUDGeneralInterface<Articulo> {
             );
             
             ps.setString(1, "%" + list + "%");
+            ps.setInt(2, (numPagina-1) * totalPorPagina );
+             ps.setInt(2, totalPorPagina );
+             
             rs = ps.executeQuery();
             while (rs.next()) {
                 registros.add(new Articulo(
-                        rs.getInt(1),
-                         rs.getInt(2),
-                         rs.getInt(3),
-                        rs.getString(4),
-                        rs.getDouble(5),
-                        rs.getInt(4),
-                        rs.getString(5),
-                        rs.getString(6),
-                        rs.getBoolean(4)
+                        rs.getInt(1), // idArticulo
+                        rs.getInt(2), //categoria_id
+                         rs.getInt(3), //Codigo
+                        rs.getString(4), //categoria nombre
+                       rs.getDouble(5), //precioVenta
+                        rs.getInt(6),   //stock
+                         rs.getString(7),// descipcion
+                        rs.getString(8),// imagen
+                        rs.getBoolean(9)//estado
                 ));
             }
             ps.close();
@@ -86,7 +90,19 @@ public class ArticuloDAO implements CRUDGeneralInterface<Articulo> {
         resp = false;
         try {
             ps = conectar.conectar().prepareStatement
-        ("INSERT INTO categoria (nombre,descripcion, estado) VALUES(?,?,1)");
+        ("INSERT INTO categoria "
+                + "(categoria_id,"
+                + "codigo,"
+                + "nombre,"
+                + "precio_venta,"
+                + "stock,"
+                + "descripcion"
+                + "imagen"
+                + "estado) "
+                + "VALUES"
+                + "(?,?,?,?,?,?,?,?,1)");
+            ps.setInt(1, object.getCategoria_id());
+             ps.setInt(2, object.getCodigo());
             ps.setString(1, object.getNombre());
             ps.setString(2, object.getDesscriocion());
             if(ps.executeUpdate() > 0){
