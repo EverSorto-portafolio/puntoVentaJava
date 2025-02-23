@@ -7,8 +7,7 @@ package datosDAO;
 package database.datos;
  */
 
-import datos.interfaces.CRUDGeneralInterface;
-import entidades.Categoria;
+
 import java.util.List;
 import database.Conexion;
 import datos.interfaces.CrudPaginadoInterface;
@@ -64,7 +63,7 @@ public class ArticuloDAO implements CrudPaginadoInterface<Articulo> {
                 registros.add(new Articulo(
                         rs.getInt(1), // idArticulo
                         rs.getInt(2), //categoria_id
-                         rs.getInt(3), //Codigo
+                         rs.getString(3), //Codigo
                         rs.getString(4), //categoria nombre
                        rs.getDouble(5), //precioVenta
                         rs.getInt(6),   //stock
@@ -100,11 +99,14 @@ public class ArticuloDAO implements CrudPaginadoInterface<Articulo> {
                 + "imagen"
                 + "estado) "
                 + "VALUES"
-                + "(?,?,?,?,?,?,?,?,1)");
+                + "(?,?,?,?,?,?,?,1)");
             ps.setInt(1, object.getCategoria_id());
-             ps.setInt(2, object.getCodigo());
-            ps.setString(1, object.getNombre());
-            ps.setString(2, object.getDesscriocion());
+            ps.setString(2, object.getCodigo());
+            ps.setString(3, object.getNombre());
+            ps.setDouble(4, object.getPrecio_venta());
+            ps.setInt(5, object.getStock());
+            ps.setString(6, object.getDesscriocion());
+             ps.setString(7, object.getImagen());
             if(ps.executeUpdate() > 0){
                 resp = true;
                 ps.close();
@@ -123,10 +125,23 @@ public class ArticuloDAO implements CrudPaginadoInterface<Articulo> {
         resp = false;
         try {
             ps = conectar.conectar().prepareStatement
-        ("Update categoria SET nombre=?, descripcion =? where id= ?");
-            ps.setString(1, object.getNombre());
-            ps.setString(2, object.getDesscriocion());
-            ps.setInt(3, object.getIdArticulo());
+        ("Update categoria SET "
+                + "categoria_id=?, "
+                + "codigo=?"
+                + "nombre=?"
+                + "precio_venta=?"
+                + "stock=?"
+                + "desscripocion=?"
+                + "imagen=?"
+                + "where id= ?");
+             ps.setInt(1, object.getCategoria_id());
+            ps.setString(2, object.getCodigo());
+            ps.setString(3, object.getNombre());
+            ps.setDouble(4, object.getPrecio_venta());
+            ps.setInt(5, object.getStock());
+            ps.setString(6, object.getDesscriocion());
+             ps.setString(7, object.getImagen());
+             ps.setInt(8, object.getIdArticulo());
             if(ps.executeUpdate() > 0){
                 resp = true;
                 ps.close();
@@ -145,7 +160,7 @@ public class ArticuloDAO implements CrudPaginadoInterface<Articulo> {
           resp = false;
         try {
             ps = conectar.conectar().prepareStatement
-        ("Update categoria SET estado=1 where id= ?");
+        ("Update articulo SET estado=1 where id= ?");
             ps.setInt(1, id);
             if(ps.executeUpdate() > 0){
                 resp = true;
@@ -165,7 +180,7 @@ public class ArticuloDAO implements CrudPaginadoInterface<Articulo> {
         resp = false;
         try {
             ps = conectar.conectar().prepareStatement
-        ("Update categoria SET estado=0 where id= ?");
+        ("Update articulo SET estado=0 where id= ?");
             ps.setInt(1, id);
             if(ps.executeUpdate() > 0){
                 resp = true;
@@ -185,7 +200,7 @@ public class ArticuloDAO implements CrudPaginadoInterface<Articulo> {
         resp = false;
         try {
             ps = conectar.conectar().prepareStatement
-        ("select nombre from categoria where id = ?");
+        ("select nombre from articulo where id = ?");
             ps.setString(1, text);
             rs = ps.executeQuery();
             rs.last();
@@ -211,7 +226,7 @@ public class ArticuloDAO implements CrudPaginadoInterface<Articulo> {
         int totalRegistro = 0;
         try {
             ps = conectar.conectar().prepareStatement
-        ("select  count(id) from categoria");
+        ("select  count(id) from articulo");
             rs = ps.executeQuery();
             while(rs.next()){
                 totalRegistro = rs.getInt("count(id)");
