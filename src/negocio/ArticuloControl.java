@@ -4,7 +4,8 @@
  */
 package negocio;
 
-import datosDAO.CategoriaDAO;
+import datosDAO.ArticuloDAO;
+import entidades.Articulo;
 import entidades.Categoria;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,37 +13,48 @@ import javax.swing.table.DefaultTableModel;
 
 public class ArticuloControl {
 
-    private final CategoriaDAO DATOS;
-    private Categoria obj;
+    private final ArticuloDAO DATOS;
+    private Articulo obj;
     private DefaultTableModel tModel;
     public int registrosMostrados;
 
     public ArticuloControl() {
-        this.DATOS = new CategoriaDAO();
-        this.obj = new Categoria();
+        this.DATOS = new ArticuloDAO();
+        this.obj = new Articulo();
     }
 
-    public DefaultTableModel listar(String texto) {
-        List<Categoria> lista = new ArrayList();
-        lista.addAll(DATOS.getAll(texto));
+    public DefaultTableModel listar(
+            String texto,
+            int totalPorpagina,
+            int numpagina
+        ){
+        List<Articulo> lista = new ArrayList();
+        lista.addAll(DATOS.getAll(texto, totalPorpagina, numpagina));
         String[] titulos
-                = {"id", "nombre", "Descripcion", "Estado"};
+                = {"id", "categoria_id", "codigo", "nombre","precio_venta","stock",
+                        "descripcion","imagen","estado"
+                };
         this.tModel = new DefaultTableModel(null, titulos);
 
         String estado;
-        String[] registro = new String[4];
+        String[] registro = new String[9];
         this.registrosMostrados = 0;
-        for (Categoria item : lista) {
-            if (item.isActivo()) {
+        for (Articulo item : lista) {
+            if (item.isEstado()) {
                 estado = "activo";
             } else {
                 estado = "Inactivo";
             }
 
-            registro[0] = Integer.toString(item.getId());
-            registro[1] = item.getNombre();
-            registro[2] = item.getDescripcion();
-            registro[3] = estado;
+            registro[0] = Integer.toString(item.getIdArticulo());
+            registro[1] = Integer.toString(item.getCategoria_id());
+            registro[2] = item.getCodigo();
+            registro[3] = item.getNombre();
+            registro[4] = Double.toString(item.getPrecio_venta());
+            registro[5] = Integer.toString(item.getStock());
+            registro[6] = item.getDesscriocion();
+            registro[7] = item.getImagen();
+            registro[8] = Boolean.toString( item.isEstado());
             this.registrosMostrados = this.registrosMostrados + 1;
             this.tModel.addRow(registro);
         }
