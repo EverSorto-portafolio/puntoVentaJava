@@ -9,6 +9,7 @@ import entidades.Articulo;
 import entidades.Categoria;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import javax.swing.table.DefaultTableModel;
 
 public class ArticuloControl {
@@ -61,12 +62,25 @@ public class ArticuloControl {
         return this.tModel;
     }
 
-    public String Insertar(String nombre, String descripcion) {
+    public String Insertar(
+            int categoria_id, 
+            String codigo, 
+            String nombre, 
+            double precio, 
+            int stock,
+            String descripcion,
+            String imagen
+    ) {
         if (DATOS.exist(nombre)) {
             return "Registro ya existe";
         } else {
             obj.setNombre(nombre);
-            obj.setDescripcion(descripcion);
+            obj.setCategoria_id(categoria_id);
+            obj.setCodigo(codigo);
+            obj.setNombre(nombre);
+            obj.setPrecio_venta(precio);
+            obj.setDesscriocion(descripcion);
+            obj.setImagen(imagen);
             if (DATOS.insert(obj)) {
                 return "OK";
             } else {
@@ -75,7 +89,16 @@ public class ArticuloControl {
         }
     }
 
-    public String actualizar(int id, String nombre, String nombreAnterior, String descripcion) {
+    public String actualizar(
+             int categoria_id, 
+            String codigo, 
+            String nombre, 
+            String nombreAnterior,
+            double precio, 
+            int stock,
+            String descripcion,
+            String imagen
+    ) {
 
         if (!nombre.equals(nombreAnterior)) {
             // Primero verificamos si el nombre ya existe en la base de datos
