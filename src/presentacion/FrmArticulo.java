@@ -4,10 +4,10 @@
  */
 package presentacion;
 
-import entidades.Categoria;
+
 import javax.swing.JOptionPane;
 import javax.swing.table.TableRowSorter;
-import negocio.CategoriaControl;
+import negocio.ArticuloControl;
 
 /**
  *
@@ -18,13 +18,13 @@ public class FrmArticulo extends javax.swing.JInternalFrame {
     /**
      * Creates new form FrmCategoria
      */
-    private final CategoriaControl CONTROL;
+    private final ArticuloControl CONTROL;
     private String accion;
     private String nombreAnt;
 
     public FrmArticulo() {
         initComponents();
-        this.CONTROL = new CategoriaControl();
+        this.CONTROL = new ArticuloControl();
         this.listar("");
         tabGeneral.setEnabledAt(1, false);
         this.accion = "Guardar";
@@ -32,7 +32,7 @@ public class FrmArticulo extends javax.swing.JInternalFrame {
     }
 
     private void listar(String texto) {
-        tablaListado.setModel(this.CONTROL.listar(texto));
+        tablaListado.setModel(this.CONTROL.listar(texto,10,1));
         TableRowSorter orden = new TableRowSorter(tablaListado.getModel());
         tablaListado.setRowSorter(orden);
         lblCantidadRegistro.setText("Mostrar "
@@ -88,7 +88,8 @@ public class FrmArticulo extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Categoria");
+        setTitle("Articulo");
+        setName(""); // NOI18N
 
         tabGeneral.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -289,6 +290,9 @@ public class FrmArticulo extends javax.swing.JInternalFrame {
             .addComponent(tabGeneral, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
+        getAccessibleContext().setAccessibleName("Articulo");
+        getAccessibleContext().setAccessibleDescription("");
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -339,8 +343,9 @@ public class FrmArticulo extends javax.swing.JInternalFrame {
         String respuesta;
 
         if (this.accion.equals("editar")) {
-            respuesta = this.CONTROL.actualizar(Integer.parseInt(txtId.getText()),
-                    txtNombre.getText(), this.nombreAnt, txtDescripcion.getText());
+            respuesta = "OK";
+          //  respuesta = this.CONTROL.actualizar(Integer.parseInt(txtId.getText()),
+                    //txtNombre.getText(), this.nombreAnt, txtDescripcion.getText());
 
             if (respuesta.equals("OK")) {
                 this.mensajeOk("Registrado Correctamente");
@@ -356,7 +361,8 @@ public class FrmArticulo extends javax.swing.JInternalFrame {
             }
 
         } else {
-            respuesta = this.CONTROL.Insertar(txtNombre.getText(), txtDescripcion.getText());
+            respuesta = "OK";
+         //   respuesta = this.CONTROL.Insertar(txtNombre.getText(), txtDescripcion.getText());
             if (respuesta.equals("OK")) {
                 this.mensajeOk("Registrado Correctamente");
                 this.limpiar();
