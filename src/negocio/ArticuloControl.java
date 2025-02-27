@@ -90,6 +90,7 @@ public class ArticuloControl {
     }
 
     public String actualizar(
+           int articulo_id,
              int categoria_id, 
             String codigo, 
             String nombre, 
@@ -101,24 +102,32 @@ public class ArticuloControl {
     ) {
 
         if (!nombre.equals(nombreAnterior)) {
+           
+            obj.setIdArticulo(articulo_id);
+            obj.setNombre(nombre);
+            obj.setCategoria_id(categoria_id);
+            obj.setCodigo(codigo);
+            obj.setNombre(nombre);
+            obj.setPrecio_venta(precio);
+            obj.setDesscriocion(descripcion);
+            obj.setImagen(imagen);
+            
+            
+            
             // Primero verificamos si el nombre ya existe en la base de datos
             if (DATOS.exist(nombre)) {
                 return "El objeto ya existe";
             }
             // Si no existe, actualizamos el objeto
-            obj.setId(id);
-            obj.setNombre(nombre);
-            obj.setDescripcion(descripcion);
-            if (DATOS.update(obj)) {
-                return "OK";
-            } else {
-                return "Error al actualizar";
-            }
+            
+           
+           
         } else {
             // Si el nombre no ha cambiado, simplemente actualizamos la descripción
             obj.setId(id);
             obj.setNombre(nombre);
             obj.setDescripcion(descripcion);
+           
             if (DATOS.update(obj)) {
                 return "OK";
             } else {
