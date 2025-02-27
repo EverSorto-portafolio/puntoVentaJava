@@ -6,10 +6,8 @@ package negocio;
 
 import datosDAO.ArticuloDAO;
 import entidades.Articulo;
-import entidades.Categoria;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import javax.swing.table.DefaultTableModel;
 
 public class ArticuloControl {
@@ -28,12 +26,12 @@ public class ArticuloControl {
             String texto,
             int totalPorpagina,
             int numpagina
-        ){
+    ) {
         List<Articulo> lista = new ArrayList();
         lista.addAll(DATOS.getAll(texto, totalPorpagina, numpagina));
         String[] titulos
-                = {"id", "categoria_id", "codigo", "nombre","precio_venta","stock",
-                        "descripcion","imagen","estado"
+                = {"id", "categoria_id", "codigo", "nombre", "precio_venta", "stock",
+                    "descripcion", "imagen", "estado"
                 };
         this.tModel = new DefaultTableModel(null, titulos);
 
@@ -55,7 +53,7 @@ public class ArticuloControl {
             registro[5] = Integer.toString(item.getStock());
             registro[6] = item.getDesscriocion();
             registro[7] = item.getImagen();
-            registro[8] = Boolean.toString( item.isEstado());
+            registro[8] = Boolean.toString(item.isEstado());
             this.registrosMostrados = this.registrosMostrados + 1;
             this.tModel.addRow(registro);
         }
@@ -63,10 +61,10 @@ public class ArticuloControl {
     }
 
     public String Insertar(
-            int categoria_id, 
-            String codigo, 
-            String nombre, 
-            double precio, 
+            int categoria_id,
+            String codigo,
+            String nombre,
+            double precio,
             int stock,
             String descripcion,
             String imagen
@@ -90,19 +88,18 @@ public class ArticuloControl {
     }
 
     public String actualizar(
-           int articulo_id,
-             int categoria_id, 
-            String codigo, 
-            String nombre, 
+            int articulo_id,
+            int categoria_id,
+            String codigo,
+            String nombre,
             String nombreAnterior,
-            double precio, 
+            double precio,
             int stock,
             String descripcion,
             String imagen
     ) {
-
         if (!nombre.equals(nombreAnterior)) {
-           
+
             obj.setIdArticulo(articulo_id);
             obj.setNombre(nombre);
             obj.setCategoria_id(categoria_id);
@@ -111,30 +108,20 @@ public class ArticuloControl {
             obj.setPrecio_venta(precio);
             obj.setDesscriocion(descripcion);
             obj.setImagen(imagen);
-            
-            
-            
+
             // Primero verificamos si el nombre ya existe en la base de datos
             if (DATOS.exist(nombre)) {
                 return "El objeto ya existe";
             }
-            // Si no existe, actualizamos el objeto
-            
-           
-           
-        } else {
-            // Si el nombre no ha cambiado, simplemente actualizamos la descripción
-            obj.setId(id);
-            obj.setNombre(nombre);
-            obj.setDescripcion(descripcion);
-           
-            if (DATOS.update(obj)) {
+             if (DATOS.update(obj)) {
                 return "OK";
             } else {
                 return "Error en la actualización";
             }
+            
+        } else {
+            return "Error en la actualización";
         }
-
     }
 
     public String desactivar(int id) {
