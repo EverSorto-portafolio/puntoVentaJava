@@ -35,12 +35,22 @@ public class FrmArticulo extends javax.swing.JInternalFrame {
         tablaListado.setModel(this.CONTROL.listar(texto,10,1));
         TableRowSorter orden = new TableRowSorter(tablaListado.getModel());
         tablaListado.setRowSorter(orden);
+        ocultarColumna();
         lblCantidadRegistro.setText("Mostrar "
                 + this.CONTROL.totalMostrados()
                 + " de un total de "
                 + this.CONTROL.total()
         );
     }
+    
+    private void ocultarColumna(){
+            tablaListado.getColumnModel().getColumn(1).setMaxWidth(0);
+            tablaListado.getColumnModel().getColumn(1).setMinWidth(0);
+            tablaListado.getTableHeader().getColumnModel().getColumn(1).setMaxWidth(0);
+            tablaListado.getTableHeader().getColumnModel().getColumn(1).setMinWidth(0);
+    }
+    
+    
 
     private void limpiar() {
         txtNombre.setText("");
