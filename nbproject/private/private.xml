@@ -5,7 +5,9 @@
         <group>
             <file>file:/C:/Users/everc/OneDrive/Documentos/Progrmacion/javaProject/puntoVenta/src/entidades/Articulo.java</file>
             <file>file:/C:/Users/everc/OneDrive/Documentos/Progrmacion/javaProject/puntoVenta/src/negocio/ArticuloControl.java</file>
+            <file>file:/C:/Users/everc/OneDrive/Documentos/Progrmacion/javaProject/puntoVenta/src/presentacion/FrmArticulo.java</file>
             <file>file:/C:/Users/everc/OneDrive/Documentos/Progrmacion/javaProject/puntoVenta/src/datosDAO/ArticuloDAO.java</file>
+            <file>file:/C:/Users/everc/OneDrive/Documentos/Progrmacion/javaProject/puntoVenta/src/presentacion/FrmPrincipal.java</file>
         </group>
     </open-files>
 </project-private>
