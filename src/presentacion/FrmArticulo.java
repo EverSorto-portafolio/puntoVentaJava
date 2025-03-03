@@ -5,6 +5,7 @@
 package presentacion;
 
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableRowSorter;
 import negocio.ArticuloControl;
@@ -29,8 +30,16 @@ public class FrmArticulo extends javax.swing.JInternalFrame {
         tabGeneral.setEnabledAt(1, false);
         this.accion = "Guardar";
         txtId.setVisible(false);
+        this.cargarCategoria();
     }
 
+    private void cargarCategoria(){
+        DefaultComboBoxModel items = this.CONTROL.selectCategoria();
+        cboCategoria.setModel(items);
+    }
+    
+    
+    
     private void listar(String texto) {
         tablaListado.setModel(this.CONTROL.listar(texto,10,1));
         TableRowSorter orden = new TableRowSorter(tablaListado.getModel());
