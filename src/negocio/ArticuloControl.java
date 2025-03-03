@@ -61,8 +61,8 @@ public class ArticuloControl {
             registro[5] = Double.toString(item.getPrecio_venta());
             registro[6] = Integer.toString(item.getStock());
             registro[7] = item.getDesscriocion();
-            registro[9] = item.getImagen();
-            registro[10] = Boolean.toString(item.isEstado());
+            registro[8] = item.getImagen();
+            registro[9] = Boolean.toString(item.isEstado());
             this.registrosMostrados = this.registrosMostrados + 1;
             this.tModel.addRow(registro);
         }

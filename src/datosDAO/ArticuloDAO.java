@@ -64,13 +64,13 @@ public class ArticuloDAO implements CrudPaginadoInterface<Articulo> {
                         rs.getInt(1), // idArticulo
                         rs.getInt(2), //categoria_id
                         rs.getString(3),//nombre_categoria
-                         rs.getString(3), //Codigo
-                        rs.getString(4), //categoria nombre
-                       rs.getDouble(5), //precioVenta
-                        rs.getInt(6),   //stock
-                         rs.getString(7),// descipcion
-                        rs.getString(8),// imagen
-                        rs.getBoolean(9)//estado
+                         rs.getString(4), //Codigo
+                        rs.getString(5), //categoria nombre
+                       rs.getDouble(6), //precioVenta
+                        rs.getInt(7),   //stock
+                         rs.getString(8),// descipcion
+                        rs.getString(9),// imagen
+                        rs.getBoolean(10)//estado
                 ));
             }
             ps.close();
