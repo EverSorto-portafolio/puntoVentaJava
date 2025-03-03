@@ -63,6 +63,7 @@ public class ArticuloDAO implements CrudPaginadoInterface<Articulo> {
                 registros.add(new Articulo(
                         rs.getInt(1), // idArticulo
                         rs.getInt(2), //categoria_id
+                        rs.getString(3),//nombre_categoria
                          rs.getString(3), //Codigo
                         rs.getString(4), //categoria nombre
                        rs.getDouble(5), //precioVenta

@@ -11,7 +11,7 @@ package entidades;
 public class Articulo {
     private int idArticulo;
     private int categoria_id;
-    private  String categoriaNombre;
+    private  String categoria_nombre;
     private String codigo;
     private String nombre;
     private double precio_venta;
@@ -26,7 +26,7 @@ public class Articulo {
     public Articulo(int idArticulo, int categoria_id, String categoriaNombre, String codigo, String nombre, double precio_venta, int stock, String desscriocion, String imagen, boolean estado) {
         this.idArticulo = idArticulo;
         this.categoria_id = categoria_id;
-        this.categoriaNombre = categoriaNombre;
+        this.categoria_nombre = categoriaNombre;
         this.codigo = codigo;
         this.nombre = nombre;
         this.precio_venta = precio_venta;
@@ -110,16 +110,16 @@ public class Articulo {
 
    
     public String getCategoriaNombre() {
-        return categoriaNombre;
+        return categoria_nombre;
     }
 
     public void setCategoriaNombre(String categoriaNombre) {
-        this.categoriaNombre = categoriaNombre;
+        this.categoria_nombre = categoriaNombre;
     }
 
     @Override
     public String toString() {
-        return "Articulo{" + "idArticulo=" + idArticulo + ", categoria_id=" + categoria_id + ", categoriaNombre=" + categoriaNombre + ", codigo=" + codigo + ", nombre=" + nombre + ", precio_venta=" + precio_venta + ", stock=" + stock + ", desscriocion=" + desscriocion + ", imagen=" + imagen + ", estado=" + estado + '}';
+        return "Articulo{" + "idArticulo=" + idArticulo + ", categoria_id=" + categoria_id + ", categoriaNombre=" + categoria_nombre + ", codigo=" + codigo + ", nombre=" + nombre + ", precio_venta=" + precio_venta + ", stock=" + stock + ", desscriocion=" + desscriocion + ", imagen=" + imagen + ", estado=" + estado + '}';
     }
 }
 

@@ -30,8 +30,16 @@ public class ArticuloControl {
         List<Articulo> lista = new ArrayList();
         lista.addAll(DATOS.getAll(texto, totalPorpagina, numpagina));
         String[] titulos
-                = {"id", "categoria_id", "codigo", "nombre", "precio_venta", "stock",
-                    "descripcion", "imagen", "estado"
+                = {"id", 
+                    "categoria_id",
+                    "categoria",
+                    "codigo", 
+                    "nombre",
+                    "precio_venta", 
+                    "stock",
+                    "descripcion", 
+                    "imagen",
+                    "estado"
                 };
         this.tModel = new DefaultTableModel(null, titulos);
 
@@ -47,13 +55,14 @@ public class ArticuloControl {
 
             registro[0] = Integer.toString(item.getIdArticulo());
             registro[1] = Integer.toString(item.getCategoria_id());
-            registro[2] = item.getCodigo();
-            registro[3] = item.getNombre();
-            registro[4] = Double.toString(item.getPrecio_venta());
-            registro[5] = Integer.toString(item.getStock());
-            registro[6] = item.getDesscriocion();
-            registro[7] = item.getImagen();
-            registro[8] = Boolean.toString(item.isEstado());
+            registro[2] = item.getCategoriaNombre();
+            registro[3] = item.getCodigo();
+            registro[4] = item.getNombre();
+            registro[5] = Double.toString(item.getPrecio_venta());
+            registro[6] = Integer.toString(item.getStock());
+            registro[7] = item.getDesscriocion();
+            registro[9] = item.getImagen();
+            registro[10] = Boolean.toString(item.isEstado());
             this.registrosMostrados = this.registrosMostrados + 1;
             this.tModel.addRow(registro);
         }
