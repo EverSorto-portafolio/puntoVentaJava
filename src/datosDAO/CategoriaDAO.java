@@ -186,16 +186,15 @@ public class CategoriaDAO implements CRUDGeneralInterface<Categoria> {
         try {
             ps = conectar.conectar().
                     prepareStatement(
-                            "SELECT id, nombre FROM categoria" 
+                            "SELECT id, nombre FROM categoria ORDER BY nombre ASC" 
                     );
            
             rs = ps.executeQuery();
             while (rs.next()) {
                 registros.add(new Categoria(
                         rs.getInt(1),
-                        rs.getString(2), 
-                        rs.getString(3),
-                        rs.getBoolean(4)));
+                        rs.getString(2)
+                ));
             }
             ps.close();
             rs.close();

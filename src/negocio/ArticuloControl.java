@@ -5,9 +5,12 @@
 package negocio;
 
 import datosDAO.ArticuloDAO;
+import datosDAO.CategoriaDAO;
 import entidades.Articulo;
+import entidades.Categoria;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
 public class ArticuloControl {
@@ -15,11 +18,14 @@ public class ArticuloControl {
     private final ArticuloDAO DATOS;
     private Articulo obj;
     private DefaultTableModel tModel;
+    private final CategoriaDAO DATOSCAT;
     public int registrosMostrados;
+    
 
     public ArticuloControl() {
         this.DATOS = new ArticuloDAO();
         this.obj = new Articulo();
+        this.DATOSCAT = new CategoriaDAO();
     }
 
     public DefaultTableModel listar(
@@ -69,6 +75,17 @@ public class ArticuloControl {
         return this.tModel;
     }
 
+    public DefaultComboBoxModel selectCategoria(){
+        DefaultComboBoxModel items = new DefaultComboBoxModel();
+        List<Categoria> lista = new ArrayList();
+        lista = DATOSCAT.SelectCategoria();
+        for ( Categoria item : lista ){
+            items.addElement(new Categoria(item.getId(), item.getNombre()));
+        }
+        return items;
+    }
+    
+    
     public String Insertar(
             int categoria_id,
             String codigo,
