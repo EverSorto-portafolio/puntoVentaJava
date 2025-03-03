@@ -180,5 +180,33 @@ public class CategoriaDAO implements CRUDGeneralInterface<Categoria> {
         }
         return totalRegistro;
     }
+    
+    public List<Categoria> SelectCategoria() {
+        List<Categoria> registros = new ArrayList();
+        try {
+            ps = conectar.conectar().
+                    prepareStatement(
+                            "SELECT id, nombre FROM categoria" 
+                    );
+           
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                registros.add(new Categoria(
+                        rs.getInt(1),
+                        rs.getString(2), 
+                        rs.getString(3),
+                        rs.getBoolean(4)));
+            }
+            ps.close();
+            rs.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        } finally {
+            ps = null;
+            rs = null;
+            conectar.desconnectar();
+        }
+        return registros;
+    }
 
 }
